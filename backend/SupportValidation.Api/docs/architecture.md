@@ -2,8 +2,7 @@
 
 ## Purpose
 
-Support Validation Console (SVC) is a small ASP.NET Core Web API designed to validate inbound support payloads against a defined contract and return predictable, support-friendly responses. The project is intentionally structured to separate HTTP concerns (controllers) from business logic (services) and persistence (stores), so that each layer remains testable and easy to reason about.
-
+Support Validation Console (SVC) is a small ASP.NET Core Web API designed to validate inbound support payloads against a defined input contract represented by the ValidationRequest model.
 ---
 
 ## High-Level Design
