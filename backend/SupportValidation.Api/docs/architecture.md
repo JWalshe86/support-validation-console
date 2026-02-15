@@ -11,9 +11,9 @@ The API follows a simple layered design:
 
 **Controller (HTTP boundary) → Service (business workflow) → Store (persistence abstraction)**
 
-- Controllers translate HTTP requests into application actions and return HTTP responses.
-- Services implement the core validation workflow and orchestration.
-- Stores provide a persistence mechanism (currently in-memory) behind an interface so it can be swapped later (e.g., SQL).
+- After routing, model binding, and structural validation have completed, the controller action translates the HTTP request into an application operation by invoking the appropriate service method, then translates the result into an HTTP response.
+- The service layer implements the core validation workflow: it applies domain rules, orchestrates rule evaluation, coordinates persistence, and produces the resulting ValidationRun. ValidationRun is the aggregate output of the validation workflow and represents a persistable execution snapshot.
+- Stores provide a persistence mechanism (currently in-memory) behind an interface so it can be swapped later (e.g., SQL). ValidationRuns are saved to the store as part of the service workflow, and can be retrieved later for status checks or audits.
 
 This structure keeps responsibilities clear and makes it easy to extend the project into a more production-like support simulator.
 
@@ -31,7 +31,7 @@ They exist to:
   - automatic validation via `[ApiController]`
   - returning correct HTTP status codes
 
-Controllers **do not** implement business logic. They delegate to services so the workflow remains reusable and testable outside HTTP.
+Controllers **do not** implement business logic e.g, for state IE, provision A is required. Instead, they delegate to services so the workflow remains reusable and testable outside HTTP.
 
 ---
 
